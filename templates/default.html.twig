@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+      {% block head_meta %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        {% for meta in page.metadata %}
+          <meta {% if meta.name %}name="{{ meta.name }}" {% endif %}{% if meta.http_equiv %}http-equiv="{{ meta.http_equiv }}" {% endif %}{% if meta.charset %}charset="{{ meta.charset }}" {% endif %}{% if meta.property %}property="{{ meta.property }}" {% endif %}{% if meta.content %}content="{{ meta.content }}" {% endif %}/>
+        {% endfor %}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="{{ site.metadata.description }}" />
+      {% endblock %}
+
+      {% block head_title %}
+        <title>{% if page.header.title and (page.url != base_url or 'error' == page.template) %}{{ page.header.title }} | {% endif %}{{ site.title }}</title>
+      {% endblock %}
+
+      <link rel="canonical" href="{{ page.url(true) }}" />
+      <link rel="shortcut icon" href="{{ url('theme://assets/images/favicon.ico') }}" />
+
+      <script>
+        var base_url = '{{ base_url }}',
+            theme_url = '{{ theme_url }}';
+      </script>
+
+      {% block head_js %}
+        {% do assets.add('jquery', 103) %}
+        {% do assets.add('//code.jquery.com/jquery-migrate-1.2.1.min.js', 102) %}
+
+        {% do assets.add('theme://assets/js/skel.min.js', 101) %}
+        {% do assets.add('theme://assets/js/init.js', 100) %}
+
+        {# HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries #}
+        {# WARNING: Respond.js doesn't work if you view the page via file:// #}
+        {% if browser.getBrowser == 'msie' and browser.getVersion >= 8 and browser.getVersion <= 9 %}
+          {% do assets.add('https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js') %}
+          {% do assets.add('https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js') %}
+        {% endif %}
+
+        {{ assets.js() }}
+      {% endblock %}
+
+      {% block head_css %}
+        <noscript>
+          <link rel="stylesheet" href="{{ url('theme://assets/css/skel.css') }}" />
+          <link rel="stylesheet" href="{{ url('theme://assets/css/style.css') }}" />
+          <link rel="stylesheet" href="{{ url('theme://assets/css/style-wide.css') }}" />
+          <link rel="stylesheet" href="{{ url('theme://assets/css/style-noscript.css') }}" />
+        </noscript>
+
+        {% if browser.getBrowser == 'msie' and browser.getVersion <= 9 %}
+          {% do assets.add('theme://assets/css/ie/v9.css') %}
+        {% endif %}
+
+        {% if browser.getBrowser == 'msie' and browser.getVersion <= 8 %}
+          {% do assets.add('theme://assets/css/ie/v8.css') %}
+        {% endif %}
+
+        {{ assets.css() }}
+
+        {% set backgrounds = page.media.images %}
+        {% if backgrounds | length %}
+          <style>
+            #bg {
+              -moz-animation: bg 60s linear infinite;
+              -webkit-animation: bg 60s linear infinite;
+              -o-animation: bg 60s linear infinite;
+              -ms-animation: bg 60s linear infinite;
+              animation: bg 60s linear infinite;
+              -moz-backface-visibility: hidden;
+              -webkit-backface-visibility: hidden;
+              -o-backface-visibility: hidden;
+              -ms-backface-visibility: hidden;
+              backface-visibility: hidden;
+              -moz-transform: translate3d(0,0,0);
+              -webkit-transform: translate3d(0,0,0);
+              -o-transform: translate3d(0,0,0);
+              -ms-transform: translate3d(0,0,0);
+              transform: translate3d(0,0,0);
+              /* Set your background with this */
+              background: #348cb2 url("{{ random(backgrounds).url }}") bottom left;
+              background-repeat: repeat-x;
+              height: 100%;
+              left: 0;
+              opacity: 1;
+              position: fixed;
+              top: 0;
+            }
+            @-moz-keyframes bg { 0% { -moz-transform: translate3d(0,0,0); -webkit-transform: translate3d(0,0,0); -o-transform: translate3d(0,0,0); -ms-transform: translate3d(0,0,0); transform: translate3d(0,0,0); } 100% { -moz-transform: translate3d(-2250px,0,0); -webkit-transform: translate3d(-2250px,0,0); -o-transform: translate3d(-2250px,0,0); -ms-transform: translate3d(-2250px,0,0); transform: translate3d(-2250px,0,0); } }
+            @-webkit-keyframes bg { 0% { -moz-transform: translate3d(0,0,0); -webkit-transform: translate3d(0,0,0); -o-transform: translate3d(0,0,0); -ms-transform: translate3d(0,0,0); transform: translate3d(0,0,0); } 100% { -moz-transform: translate3d(-2250px,0,0); -webkit-transform: translate3d(-2250px,0,0); -o-transform: translate3d(-2250px,0,0); -ms-transform: translate3d(-2250px,0,0); transform: translate3d(-2250px,0,0); } }
+            @-o-keyframes bg { 0% { -moz-transform: translate3d(0,0,0); -webkit-transform: translate3d(0,0,0); -o-transform: translate3d(0,0,0); -ms-transform: translate3d(0,0,0); transform: translate3d(0,0,0); } 100% { -moz-transform: translate3d(-2250px,0,0); -webkit-transform: translate3d(-2250px,0,0); -o-transform: translate3d(-2250px,0,0); -ms-transform: translate3d(-2250px,0,0); transform: translate3d(-2250px,0,0); } }
+            @-ms-keyframes bg { 0% { -moz-transform: translate3d(0,0,0); -webkit-transform: translate3d(0,0,0); -o-transform: translate3d(0,0,0); -ms-transform: translate3d(0,0,0); transform: translate3d(0,0,0); } 100% { -moz-transform: translate3d(-2250px,0,0); -webkit-transform: translate3d(-2250px,0,0); -o-transform: translate3d(-2250px,0,0); -ms-transform: translate3d(-2250px,0,0); transform: translate3d(-2250px,0,0); } }
+            @keyframes bg { 0% { -moz-transform: translate3d(0,0,0); -webkit-transform: translate3d(0,0,0); -o-transform: translate3d(0,0,0); -ms-transform: translate3d(0,0,0); transform: translate3d(0,0,0); } 100% { -moz-transform: translate3d(-2250px,0,0); -webkit-transform: translate3d(-2250px,0,0); -o-transform: translate3d(-2250px,0,0); -ms-transform: translate3d(-2250px,0,0); transform: translate3d(-2250px,0,0); } }
+
+            #bg {
+              background-size: 2250px auto;
+              width: 6750px;
+            }
+          </style>
+        {% endif %}
+      {% endblock %}
+
+      {% block head_css_extra %}{% endblock %}
+    {% endblock %}
+  </head>
+
+  {% block body %}<body class="loading">{% endblock %}
+    <div id="wrapper">
+      <div id="bg"></div>
+      <div id="overlay"></div>
+      <div id="main">
+        {% block body_header %}
+          <header id="header">
+
+            {% block body_content %}
+              <h1>{{ page.title }}</h1>
+              {{ page.content }}
+            {% endblock %}
+
+            {% if page.header.links %}
+              <nav>
+                <ul>
+                  {% block body_nav %}
+                    {% for line in page.header.links %}
+                      <li><a href="{{ line.url }}" class="icon fa-{{ line.icon }}"><span class="label">{{ line.title }}</span></a></li>
+                    {% endfor %}
+                  {% endblock %}
+                </ul>
+              </nav>
+            {% endif %}
+          </header>
+        {% endblock %}
+
+        {% block body_footer %}
+          <footer id="footer">
+            <span class="copyright">&copy; {{ "NOW" | date('Y') }} {{ site.title }} | Design: <a href="http://html5up.net">HTML5 UP</a> | Grav Theme: <a href="https://nunopress.com">NunoPress</a>.</span>
+          </footer>
+        {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>

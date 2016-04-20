@@ -1,0 +1,6 @@
+{% extends 'default.html.twig' %}
+
+{% block body_content %}
+  <h1>Error {{ page.header.http_response_code }}</h1>
+  {{ page.content }}
+{% endblock %}
