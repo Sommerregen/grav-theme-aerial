@@ -1,3 +1,9 @@
+# v2.0.4
+## 08/05/2016
+
+1. [](#bugfix)
+    * Fixed demo link ([#723](https://github.com/getgrav/grav-plugin-admin/issues/723))
+
 # v2.0.3
 ## 03/06/2015
 
