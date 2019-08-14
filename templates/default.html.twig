@@ -125,7 +125,7 @@
                 <ul>
                   {% block body_nav %}
                     {% for line in page.header.links %}
-                      <li><a href="{{ line.url }}" class="icon fa-{{ line.icon }}"><span class="label">{{ line.title }}</span></a></li>
+                      <li><a href="{{ line.url }}" class="{{ line.icon }}"><span class="label">{{ line.title }}</span></a></li>
                     {% endfor %}
                   {% endblock %}
                 </ul>
