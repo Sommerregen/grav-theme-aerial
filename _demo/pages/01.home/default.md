@@ -2,23 +2,23 @@
 title: "Adam Jensen"
 
 links:
-  - icon: "twitter"
+  - icon: "fab fa-twitter"
     url: "#"
     title: "Twitter"
 
-  - icon: "facebook"
+  - icon: "fab fa-facebook"
     url: "#"
     title: "Facebook"
 
-  - icon: "dribbble"
+  - icon: "fab fa-dribbble"
     url: "#"
     title: "Dribbble"
 
-  - icon: "github"
+  - icon: "fab fa-github"
     url: "#"
     title: "Github"
 
-  - icon: "envelope-o"
+  - icon: "far fa-envelope"
     url: "#"
     title: "Email"
 
